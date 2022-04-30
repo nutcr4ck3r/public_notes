@@ -73,9 +73,20 @@ tags:
 | TIME      | 時刻型 | HH:MM:SS            | -838:59:59〜838:59:59                    |
 | YEAR      | 年     | YYYY 又は YY        | YYYY=1901〜2155、YY=70〜69（1970〜2069） |
 
-## 3. 練習用サーバの起動・接続
+## 3. コメントの形式
 
-### 3.1. mysql-client のインストール
+```sql
+# 行コメント
+
+-- 行コメント
+
+/* ブロックコメント
+   （改行も含む） */
+```
+
+## 4. 練習用サーバの起動・接続
+
+### 4.1. mysql-client のインストール
 
 ターミナルから MySQL サーバに接続するために必要
 
@@ -91,7 +102,7 @@ echo "export PATH=${PATH}:/usr/local/opt/mysql-client/bin" >> ~/.zshrc
 source ~/.zshrc
 ```
 
-### 3.2. 練習用サーバの起動
+### 4.2. 練習用サーバの起動
 
 GitHub に公開されているデータを利用して、サンプルデータ入りのサーバを作成
 
@@ -101,16 +112,16 @@ cd mysql_with_phpmyadmin.git
 docker-compose up -d
 ```
 
-### 3.3. 練習用サーバへの接続
+### 4.3. 練習用サーバへの接続
 
 ```bash
 mysql -uroot -p -h127.0.0.1
 password: root
 ```
 
-## 4. データベース操作
+## 5. データベース操作
 
-### 4.1. データベース一覧の確認
+### 5.1. データベース一覧の確認
 
 ```sql
 SHOW DATABASES;
@@ -127,7 +138,7 @@ SHOW DATABASES;
 5 rows in set (0.01 sec)
 ```
 
-### 4.2. データベースの作成・削除
+### 5.2. データベースの作成・削除
 
 ```sql
 -- 作成
@@ -137,15 +148,15 @@ CREATE DATABASE databaseName;
 DROP DATABASE databaseName;
 ```
 
-### 4.3. 操作するデータベースの選択
+### 5.3. 操作するデータベースの選択
 
 ```sql
 USE databaseName
 ```
 
-## 5. テーブル作成時の操作
+## 6. テーブル作成時の操作
 
-### 5.1. テーブル一覧の確認
+### 6.1. テーブル一覧の確認
 
 ```sql
 -- 現在操作中のデータベースで確認する場合
@@ -164,7 +175,7 @@ SHOW TABLES FROM databaseName;
 3 rows in set (0.00 sec)
 ```
 
-### 5.2. テーブルのフィールド一覧の確認
+### 6.2. テーブルのフィールド一覧の確認
 
 ```sql
 SHOW FIELDS FROM tableName;
@@ -179,7 +190,7 @@ SHOW FIELDS FROM tableName;
 4 rows in set (0.01 sec)
 ```
 
-### 5.3. テーブルの作成・削除
+### 6.3. テーブルの作成・削除
 
 ```sql
 -- 作成
@@ -193,7 +204,7 @@ CREATE TABLE tableName (
 DROP TABLE tableName;
 ```
 
-### 5.4. テーブル作成時に設定できる定義
+### 6.4. テーブル作成時に設定できる定義
 
 ```sql
 -- NULL の入力を不許可にする。
@@ -248,7 +259,7 @@ CREATE TABLE tableName1 (
 );
 ```
 
-### 5.5. テンポラリテーブルの作成・削除
+### 6.5. テンポラリテーブルの作成・削除
 
 - テンポラリテーブルは、データベースとの接続が切れると同時に削除される。
 - テンポラリテーブルは、作成したユーザしか参照することができない。
@@ -265,9 +276,9 @@ CREATE TEMPORARY TABLE tableName (
 DROP EMPORARY TABLE tableName;
 ```
 
-## 6. 既存テーブルの操作
+## 7. 既存テーブルの操作
 
-### 6.1. 主キー・外部キーの設定・削除
+### 7.1. 主キー・外部キーの設定・削除
 
 ```sql
 -- 主キーの設定
@@ -288,7 +299,7 @@ ALTER TABLE tableName DROP CONSTRAINT keyName
 ALTER TABLE tableName DROP PRIMARY KEY
 ```
 
-### 6.2. インデックスの設定
+### 7.2. インデックスの設定
 
 ```sql
 -- CREATE INDEX による方法
@@ -300,7 +311,7 @@ ALTER TABLE tableName
   ADD INDEX indexName(fieldName1, fieldName2);
 ```
 
-### 6.3. フィールドの追加・削除
+### 7.3. フィールドの追加・削除
 
 ```sql
 -- 追加
@@ -312,9 +323,9 @@ ALTER TABLE tableName
   DROP COLUMN fieldName;
 ```
 
-## 7. データの取得
+## 8. データの取得
 
-### 7.1. 使用できる演算子等の一覧
+### 8.1. 使用できる演算子等の一覧
 
 算術演算子
 
@@ -352,7 +363,7 @@ ALTER TABLE tableName
 | \|\| | 論理和       | X \|\| Y |
 | XOR  | 排他的論理和 | X XOR Y  |
 
-### 7.2. 基本的なデータ取得
+### 8.2. 基本的なデータ取得
 
 ```sql
 -- 全てのフィールドのデータを取得
@@ -375,7 +386,7 @@ SELECT
 FROM tableName;
 ```
 
-### 7.3. 完全一致による絞り込み
+### 8.3. 完全一致による絞り込み
 
 ```sql
 SELECT *
@@ -383,7 +394,7 @@ FROM tableName
 WHERE full_name = '鈴木一郎';
 ```
 
-### 7.4. 曖昧検索による絞り込み
+### 8.4. 曖昧検索による絞り込み
 
 ワイルドカードとして扱う部分を`%`で指定する。
 
@@ -393,14 +404,14 @@ FROM tableName
 WHERE full_name LIKE '鈴木%';
 ```
 
-### 7.5. 重複するデータを除いた絞り込み
+### 8.5. 重複するデータを除いた絞り込み
 
 ```sql
 SELECT DISTINCT(dpt_code)
 FROM tbl_employee
 ```
 
-### 7.6. 複数条件による絞り込み
+### 8.6. 複数条件による絞り込み
 
 ```sql
 -- AND 条件
@@ -428,7 +439,7 @@ FROM tableName
 WHERE dpt_code NOT IN (40, 60);
 ```
 
-### 7.7. NULL の判定
+### 8.7. NULL の判定
 
 ```sql
 -- NULL のエントリーを絞り込み
@@ -442,7 +453,7 @@ FROM tableName
 WHERE full_name IS NOT NULL;
 ```
 
-### 7.8. 値の範囲指定
+### 8.8. 値の範囲指定
 
 ```sql
 -- ADN 演算子で指定する場合
@@ -456,7 +467,7 @@ FROM tableName
 WHERE post_code BETWEEN 10 AND 90;
 ```
 
-### 7.9. 絞り込み結果の並び替え
+### 8.9. 絞り込み結果の並び替え
 
 NULL は、MySQL において最小の値として扱われるため、
 昇順で並び替えると最上段に並ぶ。
@@ -484,7 +495,7 @@ ORDER BY
   code DESC;
 ```
 
-### 抽出された値を別名で表示
+### 8.10. 抽出された値を別名で表示
 
 `CASE`句を使用し、指定フィールドの特定値を別名で表示する。
 
@@ -497,7 +508,7 @@ SELECT
     WHEN 10 THEN 'Yes'
     ELSE 'No'
   END AS 総務部
-FROM tableName
+FROM tableName;
 
 -- 演算子を使用する場合
 SELECT
@@ -507,7 +518,7 @@ SELECT
     WHEN dpt_code = 10 THEN 'Yes'
     ELSE 'No'
   END AS 総務部
-FROM tableName
+FROM tableName;
 ```
 
 結果
@@ -521,3 +532,442 @@ FROM tableName
 ```
 
 ＝以外の演算子を使用する場合
+
+### 8.11. 複数のテーブルを結合してデータを取得
+
+- ポイント
+  - FROM 句のテーブルは複数指定できる。
+  - `テーブル名．フィールド名`の形式でテーブル・フィールド名を一括指定
+  - WHERE 句でテーブルを等結合
+
+```sql
+-- tbl_employee
+code  name      dpt_code
+--------------------------
+101   鈴木一郎  10
+102   山田次郎  20
+103   佐藤三郎  30
+
+-- tbl_department
+code  name
+--------------------------
+10    総務部
+20    営業部
+30    開発部
+```
+
+```sql
+SELECT
+  tbl_department.code AS dpt_code,
+  dtl_department.name AS dpt_name,
+  tbl_employee.code AS emp_code,
+  tbl_employee.name AS emp_name
+FROM
+  tbl_employee,
+  tbl_department
+WHERE
+  tbl_employee.dpt_code = tbl_department.code;
+
+-- 結果
+-- ＝の左で指定した値をキーとして、右に指定したフィールドの値を参照する。
+dpt_code  dpt_name  emp_code  emp_name
+----------------------------------------
+10        総務部    101       鈴木一郎
+20        営業部    102       山田次郎
+30        開発部    103       佐藤三郎
+```
+
+### 8.12. 複数のクエリ結果を参照して表示
+
+UNION: 複数のクエリ結果を結合表示
+
+```sql
+SELECT * FROM BLUE
+UNION
+SELECT * FROM RED;
+```
+
+UNION ALL: 複数のクエリ結果を結合表示（重複表示を許可）
+
+```sql
+SELECT * FROM BLUE
+UNION ALL
+SELECT * FROM RED;
+```
+
+INTERSECT: 複数のクエリ結果から、重複するものだけを表示
+
+```sql
+SELECT * FROM BLUE
+INTERSECT
+SELECT * FROM RED;
+```
+
+EXCEPT: 複数のクエリ結果から、後に指定された結果を除く
+
+```sql
+-- BLUEにのみ存在する結果を表示
+SELECT * FROM BLUE
+EXCEPT
+SELECT * FROM RED;
+```
+
+## 9. データの追加・編集
+
+### 9.1. 値を直接指定してテーブルへデータを追加
+
+```sql
+INSERT INTO tablename (
+  code,
+  name,
+  dpt_code
+)
+VALUES (
+  101,
+  '山田太郎',
+  20
+);
+
+-- テーブル内の全てのフィールドを埋めるようにデータを追加する場合、
+-- フィールド名は省略できる。
+INSERT INTO tablename
+VALUES (
+  101,
+  '山田太郎',
+  20
+);
+```
+
+### 9.2. 別のテーブルからデータを追加
+
+```sql
+-- フィールドを直接指定して追加する場合
+INSERT INTO tbl_dpt_emp (
+  dpt_code,
+  dpt_name,
+  emp_code,
+  emp_name
+)
+  SELECT
+    dpt.code,
+    dpt.name,
+    emp.code,
+    emp.name
+  FROM
+    tbl_employee AS emp,
+    tbl_department AS dpt
+  WHERE
+    emp.dpt_code = dpt.code;
+
+-- フィールド指定しない場合、追加先テーブル列の並び順の通りにデータが追加される。
+INSERT INTO tbl_dpt_emp
+  SELECT
+    dpt.code,
+    dpt.name,
+    emp.code,
+    emp.name
+  FROM
+    tbl_employee AS emp,
+    tbl_department AS dpt
+  WHERE
+    emp.dpt_code = dpt.code;
+```
+
+### 9.3. 既存データを更新
+
+```sql
+UPDATE
+  tbl_employee
+SET
+  dpt_code = 30,
+  birthday = '1983-03-03'
+WHERE
+  code = 103;
+```
+
+### 9.4. 既存データの削除
+
+```sql
+DELETE
+FROM
+  tbl_employee
+WHERE
+  code = 103;
+```
+
+## 10. 代表的な関数
+
+### 10.1. 文字列を左／右から指定数分だけ取得
+
+```sql
+LEFT(stringValue, number)  -- 左から
+RIGHT(stringValue, number)  -- 右から
+```
+
+```sql
+-- name フィールドの左から２文字文を取得
+SELECT
+  LEFT(name, 2)
+FROM
+  tbl_employee
+WHERE
+  code = 101;
+```
+
+### 10.2. 大文字／小文字に変換
+
+```sql
+SELECT LOWER(stringValue)
+SELECT UPPER(stringValue)
+```
+
+### 10.3. 値の左右に含まれる空白を削除
+
+```sql
+TRIM(stringValue)
+LTRIM(stringValue)
+RTRIM(stringValue)
+```
+
+```sql
+-- 名前の左右に含まれてしまった空白を削除する場合
+SELECT
+  TRIM(name)
+FROM
+  tbl_employee;
+
+-- 名前の左に含まれてしまった空白を削除する場合
+SELECT
+  LTRIM(name)
+FROM
+  tbl_employee;
+```
+
+### 10.4. 文字列の長さを計る
+
+```sql
+LENGTH(stringValue)
+```
+
+```sql
+SELECT
+  LENGTH(name)
+FROM
+  tbl_employee
+WHERE
+  code = 102;  -- '山田太郎'
+
+-- 結果 4
+```
+
+### 10.5. 文字列を補填する
+
+```sql
+-- 補填対象文字列、何文字まで補填するか、補填に使用する文字は
+-- 補填に使用する文字を省略した場合は、半角空白が適用される。
+LPAD(stringValue, number, character)
+```
+
+```sql
+SELECT
+  code,
+  LPAD(name, 10, '*')
+FROM
+  tbl_employee;
+
+-- 結果
+code  name
+--------------
+101   ******鈴木一郎
+102   ******山田次郎
+103   ******佐藤三郎
+```
+
+### 10.6. 文字列を置換して抽出
+
+```sql
+-- 操作対象文字列、置換前の文字列、置換後の文字列
+REPLACE(stringValue, character1, character2)
+```
+
+```sql
+SELECT
+  code,
+  REPLACE(name, '太郎', '次郎')
+FROM
+  tbl_employee;
+```
+
+### 10.7. 文字列の部分抽出
+
+```sql
+-- 操作対象文字列、抽出開始位置、抽出文字数
+SUBSTRING(stringValue, startPosition, length)
+```
+
+```sql
+SELECT
+  code,
+  SUBSTRING(name, 2, 3)
+FROM
+  tbl_employee
+WHERE
+  code = 101;  -- name = 山田太郎
+
+-- 結果 = '田太郎'
+```
+
+### 10.8. 計算（剰余、切り捨て、切り上げ）
+
+```sql
+-- 剰余
+MOD(value1, value2)
+
+-- 数値の四捨五入：四捨五入される数、四捨五入する桁
+ROUND(value, digit)
+
+-- 切り捨て：切り捨てされる数、切り捨てする桁
+TRUNCATE(value, digit)
+```
+
+```sql
+-- 剰余（結果：1）
+SELECT MOD(5, 2)
+
+-- 下２桁を基準に四捨五入（結果：123.46）
+SELECT ROUND(123.456, 2);
+-- 上２桁を基準に四捨五入（結果：100）
+SELECT ROUND(123.456, -2);
+
+-- 下２桁を基準に切り捨て（結果：123.45）
+SELECT TRUNCATE(123.456, 2);
+-- 上２桁を基準に切り上げ（結果：100）
+SELECT TRUNCATE(123.456, -2);
+
+-- 切り上げは、四捨五入と 0.05 を加える計算を組み合わせる。
+SELECT ROUND( (1.32 + 0.05), 1)
+```
+
+### 10.9. 現在の日付・時刻を得る
+
+```sql
+-- 現在の日付：2020-12-04
+CURRENT_DATE()
+
+-- 現在の時刻：11:33:54
+CURRENT_TIME()
+
+-- 現在の日時：2020-12-04 11:33:54
+CURRENT_TIMESTAMP()
+```
+
+### 10.10. レコードの件数を取得
+
+```sql
+COUNT(fieldName)
+```
+
+```sql
+-- tbl_employee テーブルの全レコード件数を取得
+SELECT
+  COUNT(*)
+FROM
+  tbl_employee;
+
+-- dpt_code の数（重複を除く）を取得：結果＝3
+SELECT
+  COUNT(DISTINCT(dpt_code))
+FROM
+  tbl_employee;
+```
+
+### 10.11. 平均値を取得する
+
+```sql
+AVG(fieldName)
+```
+
+```sql
+-- 年齢の平均値を取得
+SELECT
+  AVG(age)
+FROM
+  tbl_employee;
+```
+
+### 10.12. 最大値・最小値・合計値を取得
+
+```sql
+MAX(fieldName)
+MIN(fieldName)
+SUM(fieldName)
+```
+
+```sql
+-- 年齢の最大値
+SELECT
+  MAX(age)
+FROM
+  tbl_employee;
+
+-- 年齢の最小値
+SELECT
+  MIN(age)
+FROM
+  tbl_employee;
+
+-- 年齢の合計値
+SELECT
+  SUM(age)
+FROM
+  tbl_employee;
+```
+
+### 10.13. 値のデータタイプを変換
+
+```sql
+-- 変換対象の値、変換後のデータタイプ
+CAST(value AS dataType)
+```
+
+```sql
+-- 文字列型を日付型へ
+CAST('2020-12-01' AS DATE)
+
+-- 数値型を文字列型へ
+CAST(12.345 AS CHAR)
+```
+
+## 11. ビューの作成
+
+ビューを作成することで、何度も SELECT 文でフィールドを並べ替える必要がなくなる。
+
+```sql
+CREATE VIEW viewName (
+  fieldName1,
+  fieldName2
+) AS
+  selectStatement;
+```
+
+```sql
+-- tbl_post テーブルから code, name フィールド、
+-- tbl_employee テーブルから code, name フィールド を選択し、
+-- post_code, post_name, emp_code, emp_name として表示。
+CREATE VIEW v_post_list (
+  post_code,
+  post_name,
+  emp_code,
+  emp_name
+) AS
+  SELECT
+    post.code,
+    post.nmae,
+    emp.code,
+    emp.name
+  FROM
+    tbl_post AS post,
+    tbl_employee AS emp
+  WHERE
+    post.code = emp.post_code;
+```
